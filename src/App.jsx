@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Header from './components/Header'
-import PosterSection from './components/PosterSection'
+import Header from "./components/Header";
+import PosterSection from "./components/PosterSection";
 import axios from "axios";
 import { setRandomIndex } from "./helpers/setRandomIndex";
 
@@ -19,10 +19,10 @@ const fetchMovies = async () => {
 
 function App() {
   // All Cage Movies
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState();
   const [randomMovie, setRandomMovie] = useState([]);
   const [index, setIndex] = useState(0);
-  const [viewedIndices, setViewedIndices] = useState([])
+  const [viewedIndices, setViewedIndices] = useState([]);
 
   // When we open page, this runs which updates movies
   useEffect(() => {
@@ -34,25 +34,34 @@ function App() {
 
   // When movies changes, this runs which sets a random index
   useEffect(() => {
-    setRandomIndex(movies.length, viewedIndices, setIndex, setViewedIndices)
+    if (movies) {
+      setRandomIndex(movies.length, viewedIndices, setIndex, setViewedIndices);
+    }
   }, [movies]);
 
   // When index changes, this runs which sets a random movie
   useEffect(() => {
-    setRandomMovie(movies[index]);
+    if (movies) {
+      setRandomMovie(movies[index]);
+    }
   }, [index]);
 
-  useEffect(() => {
-    console.log(viewedIndices);
-  }, [viewedIndices])
-
+  if (!movies) {
+    return <div>.............</div>;
+  }
 
   return (
     <div className="App">
       <Header />
-      <PosterSection randomMovie={randomMovie} setIndex={setIndex} numberOfMovies={movies.length} viewedIndices={viewedIndices} setViewedIndices={setViewedIndices} />
+      <PosterSection
+        randomMovie={randomMovie}
+        setIndex={setIndex}
+        numberOfMovies={movies.length}
+        viewedIndices={viewedIndices}
+        setViewedIndices={setViewedIndices}
+      />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
