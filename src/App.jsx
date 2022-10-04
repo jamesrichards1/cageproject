@@ -47,7 +47,7 @@ function App() {
   }, [index]);
 
   if (!movies) {
-    return <div>.............</div>;
+    return <div>loading...</div>;
   }
 
   return (
