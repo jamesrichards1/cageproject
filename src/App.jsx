@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import PosterSection from "./components/PosterSection";
+import ScoreBoard from "./components/ScoreBoard";
 import axios from "axios";
 import { setRandomIndex } from "./helpers/setRandomIndex";
 
@@ -17,12 +18,24 @@ const fetchMovies = async () => {
   }
 };
 
+const fetchScores = async () => {
+  try {
+    const scores = await axios.get(
+      `${import.meta.env.VITE_FUNCTIONS_URL}/fetchScores`
+    );
+    return scores;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 function App() {
   // All Cage Movies
   const [movies, setMovies] = useState();
   const [randomMovie, setRandomMovie] = useState([]);
   const [index, setIndex] = useState(0);
   const [viewedIndices, setViewedIndices] = useState([]);
+  const [scores, setScores] = useState([]);
 
   // When we open page, this runs which updates movies
   useEffect(() => {
@@ -31,6 +44,13 @@ function App() {
       setMovies(data.cast);
     })();
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await fetchScores();
+      setScores(data.data);
+    })();
+  }, [randomMovie]);
 
   // When movies changes, this runs which sets a random index
   useEffect(() => {
@@ -60,6 +80,7 @@ function App() {
         viewedIndices={viewedIndices}
         setViewedIndices={setViewedIndices}
       />
+      <ScoreBoard scores={scores} />
     </div>
   );
 }
