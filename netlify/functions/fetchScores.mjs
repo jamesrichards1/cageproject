@@ -9,7 +9,7 @@ exports.handler = async function (event, context) {
     statusCode: 200,
     body: JSON.stringify({ data }),
     headers: {
-      "Access-Control-Allow-Origin": "*", // Allow from anywhere
+      "Access-Control-Allow-Origin": "*", // Allow from anywhere (CORS)
     },
   };
 };

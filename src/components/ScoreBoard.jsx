@@ -35,10 +35,6 @@ const ScoreBoard = ({ scores }) => {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  useEffect(() => {
-    console.log(scores);
-  }, [scores]);
-
   return (
     <div className="flex items-center justify-center">
       {" "}

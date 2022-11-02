@@ -26,7 +26,7 @@ const PosterSection = ({
     if (status !== 200) {
       return;
     }
-
+    // If movie isnt on supabase, add it, otherwise, update it & get a new movie
     if (data.data.length === 0) {
       const payload = {
         movieId: randomMovie.id,

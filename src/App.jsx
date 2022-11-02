@@ -7,6 +7,8 @@ import { setRandomIndex } from "./helpers/setRandomIndex";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
+// Serverless functions to fetch all cage movies from TMDB
+
 const fetchMovies = async () => {
   try {
     const movies = await axios.get(
@@ -17,6 +19,8 @@ const fetchMovies = async () => {
     console.log(err);
   }
 };
+
+// Serverless functions to fetch score from supabase
 
 const fetchScores = async () => {
   try {
@@ -31,7 +35,7 @@ const fetchScores = async () => {
 
 function App() {
   // All Cage Movies
-  const [movies, setMovies] = useState();
+  const [movies, setMovies] = useState([]);
   const [randomMovie, setRandomMovie] = useState([]);
   const [index, setIndex] = useState(0);
   const [viewedIndices, setViewedIndices] = useState([]);
