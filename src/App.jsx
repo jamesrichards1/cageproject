@@ -35,7 +35,7 @@ const fetchScores = async () => {
 
 function App() {
   // All Cage Movies
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState();
   const [randomMovie, setRandomMovie] = useState([]);
   const [index, setIndex] = useState(0);
   const [viewedIndices, setViewedIndices] = useState([]);
